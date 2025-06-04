@@ -6,6 +6,9 @@ import org.slf4j.LoggerFactory;
 import java.util.Scanner;
 
 import org.example.tinydb.parser.*;
+import org.example.tinydb.exec.StatementDispatcher;
+import org.example.tinydb.parser.SqlParser;
+import org.example.tinydb.parser.SqlStatement;
 
 public class TinyDB {
     private static final Logger logger = LoggerFactory.getLogger(TinyDB.class);
@@ -15,7 +18,8 @@ public class TinyDB {
 //            printHelp();
 //            return;
 //        }
-
+        SqlParser parser = new SqlParser();
+        StatementDispatcher dispatcher = new StatementDispatcher();
         logger.info("Welcome to TinyDB!");
         Scanner scanner = new Scanner(System.in);
         StringBuilder currentStatement = new StringBuilder();
@@ -45,17 +49,11 @@ public class TinyDB {
                 sql = sql.substring(0, sql.length() - 1).trim();
             }
 
-            SqlParser parser = new SqlParser();
+
             SqlStatement stmt = parser.parse(sql);
             System.out.println("[DEBUG] Parsed: " + stmt.getClass().getSimpleName());
 
-            if (stmt instanceof CreateTableStatement createStmt) {
-                System.out.println("Parsed CREATE TABLE: " + createStmt.getTableName());
-                for (var col : createStmt.getColumns()) {
-                    System.out.println(" - " + col);
-                }
-                TableStorage.saveTableDefinition(createStmt);
-            }
+            dispatcher.dispatch(stmt);
 
         }
 
