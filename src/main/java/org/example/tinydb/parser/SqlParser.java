@@ -2,7 +2,7 @@ package org.example.tinydb.parser;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.example.tinydb.parser.*;
+
 public class SqlParser {
 
     public SqlStatement parse(String sql) {

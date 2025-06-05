@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Scanner;
 
-import org.example.tinydb.parser.*;
 import org.example.tinydb.exec.StatementDispatcher;
 import org.example.tinydb.parser.SqlParser;
 import org.example.tinydb.parser.SqlStatement;
